@@ -9,6 +9,7 @@ COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 COPY ./nginx/conf.d/ /etc/nginx/conf.d/
 # We are mounting the 'live' directory which contains symlinks
 COPY /etc/letsencrypt/live/jyllandteodosio.dev /etc/nginx/ssl
+COPY /etc/letsencrypt/archive/jyllandteodosio.dev /etc/archive/jyllandteodosio.dev
 
 # Expose port 80 (optional, often done in docker-compose)
 EXPOSE 80 443
