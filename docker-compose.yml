@@ -2,15 +2,12 @@ services:
 
   # --- Nginx Reverse Proxy Service ---
   nginx:
-    image: nginx:alpine
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
     ports:
       - "80:80"
       - "443:443"
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./nginx/conf.d/:/etc/nginx/conf.d/:ro
-      # We are mounting the 'live' directory which contains symlinks
-      - /etc/letsencrypt/live/jyllandteodosio.dev:/etc/nginx/ssl:ro
     depends_on:
       - portfolio
       # - taskaru-frontend
