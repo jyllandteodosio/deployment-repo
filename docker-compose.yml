@@ -1,0 +1,113 @@
+version: '3.8'
+
+services:
+
+  # --- Nginx Reverse Proxy Service ---
+  # This service listens on ports 80 and 443 and routes traffic to the correct application service.
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d/:/etc/nginx/conf.d/:ro
+      # We are mounting the 'live' directory which contains symlinks
+      - /etc/letsencrypt/live/jyllandteodosio.dev:/etc/nginx/ssl:ro
+      - /etc/letsencrypt/archive/jyllandteodosio.dev:/etc/nginx/ssl/archive:ro
+    depends_on:
+      - portfolio
+      # - taskaru-frontend
+      # - taskaru-backend
+      # - carpool
+    networks:
+      - app_network
+
+  # --- Portfolio App Service ---
+  # This service runs your portfolio app (serving static files with its internal Nginx).
+  portfolio:
+    image: jyllandteodosio/portfolio-app:latest
+    restart: always
+    networks:
+      - app_network
+  # --- Taskaru App Frontend Service (Next.js/React) ---
+  # taskaru-frontend:
+  #   image: jyllandteodosio/taskaru-frontend:latest
+  #   # This service might need to communicate with the backend API internally.
+  #   # expose:
+  #   #   - "3000" # Or whatever port the Next.js server listens on internally
+  #   restart: always
+  #   depends_on:
+  #     - taskaru-backend
+  #   networks:
+  #     - app_network
+
+  # # --- Taskaru App Backend Service (Node.js API) ---
+  # taskaru-backend:
+  #   image: jyllandteodosio/taskaru-backend:latest
+  #   # This service needs to communicate with the MongoDB database internally.
+  #   # expose:
+  #   #   - "5000" # Or whatever port your Node.js API listens on internally
+  #   environment:
+  #     MONGO_URI: mongodb://mongodb:27017/taskdb
+  #     # Add other environment variables as needed (API keys, etc.)
+  #   restart: always
+  #   depends_on:
+  #     - mongodb
+  #   networks:
+  #     - app_network
+
+  # # --- Taskaru App Database Service (MongoDB) ---
+  # mongodb:
+  #   image: mongo:latest
+  #   volumes:
+  #     - mongodb_data:/data/db
+  #   restart: always
+  #   networks:
+  #     - app_network
+
+  # # --- Carpool App Service (Laravel) ---
+  # carpool:
+  #   image: jyllandteodosio/carpool-app:latest
+  #   # This service needs to communicate with the MySQL database internally.
+  #   # expose:
+  #   #   - "80" # Or whatever port your Laravel/Apache/Nginx container listens on internally
+  #   environment:
+  #     DB_CONNECTION: mysql
+  #     DB_HOST: mysql
+  #     DB_PORT: 3306
+  #     DB_DATABASE: carpooldb
+  #     DB_USERNAME: carpooluser
+  #     DB_PASSWORD: carpoolpassword
+  #     # Add other Laravel environment variables (.env)
+  #   restart: always
+  #   depends_on:
+  #     - mysql
+  #   networks:
+  #     - app_network
+
+  # # --- Carpool App Database Service (MySQL) ---
+  # mysql:
+  #   image: mysql:8.0
+  #   environment:
+  #     # Set MySQL root password (use secrets in production!)
+  #     MYSQL_ROOT_PASSWORD: your_mysql_root_password
+  #     # Create a database and user for the Carpool app
+  #     MYSQL_DATABASE: carpooldb
+  #     MYSQL_USER: carpooluser
+  #     MYSQL_PASSWORD: carpoolpassword
+  #   volumes:
+  #     - mysql_data:/var/lib/mysql
+  #   restart: always
+  #   networks:
+  #     - app_network
+
+  # Define the network for services to communicate
+networks:
+  app_network:
+    driver: bridge # Use a bridge network for inter-container communication
+
+# Define named volumes for persistent data
+volumes:
+  # mongodb_data:
+  # mysql_data:

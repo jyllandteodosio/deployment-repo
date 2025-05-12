@@ -1,0 +1,50 @@
+name: Deploy Docker Compose Stack
+
+on:
+  push:
+    branches:
+      - main 
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the code from the deployment repository
+      - name: Checkout deployment repository code
+        uses: actions/checkout@v4
+
+      # --- File Transfer to Droplet ---
+      - name: Copy files to Droplet
+        uses: appleboy/scp-action@v0.1.7 
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "docker-compose.yml,nginx/,scripts/" 
+          target: "/opt/docker/" 
+
+      # --- Execute Deployment Commands on Droplet ---
+      - name: Run Docker Compose Deploy
+        uses: appleboy/ssh-action@v1.0.3 
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            DEPLOY_BASE_DIR="/opt/docker" 
+            DEPLOY_SCRIPT_PATH="${DEPLOY_BASE_DIR}/scripts/deploy.sh" 
+
+            # Make the deploy script executable
+            chmod +x ${DEPLOY_SCRIPT_PATH}
+
+            # Navigate to the directory containing docker-compose.yml
+            # Adjust if your compose file is in a subdirectory within the target
+            cd ${DEPLOY_BASE_DIR} || { echo "Error: Deployment directory ${DEPLOY_BASE_DIR} not found."; exit 1; }
+
+            echo "Navigated to deployment directory: ${PWD}"
+
+            # Execute the deploy script
+            ${DEPLOY_SCRIPT_PATH}
+
