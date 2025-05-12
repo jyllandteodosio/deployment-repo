@@ -14,7 +14,6 @@ services:
       - ./nginx/conf.d/:/etc/nginx/conf.d/:ro
       # We are mounting the 'live' directory which contains symlinks
       - /etc/letsencrypt/live/jyllandteodosio.dev:/etc/nginx/ssl:ro
-      - /etc/letsencrypt/archive/jyllandteodosio.dev:/etc/nginx/ssl/archive:ro
     depends_on:
       - portfolio
       # - taskaru-frontend
