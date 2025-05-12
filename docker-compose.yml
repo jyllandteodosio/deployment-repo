@@ -109,5 +109,5 @@ networks:
 
 # Define named volumes for persistent data
 volumes:
-  # mongodb_data:
-  # mysql_data:
+  mongodb_data:
+  mysql_data:
