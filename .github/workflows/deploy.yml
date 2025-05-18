@@ -9,7 +9,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: production
+    environment: "production"
 
     steps:
       # Checkout the code from the deployment repository
@@ -34,33 +34,33 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           envs: |
-            SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
-            RECAPTCHA_SECRET_KEY: ${{ secrets.RECAPTCHA_SECRET_KEY }}
-            GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
-            NODE_ENV: ${{ vars.NODE_ENV }}
-            PORT: ${{ vars.PORT }}
-            MONGO_URI: ${{ vars.MONGO_URI }}
-            DB_URI: ${{ vars.DB_URI }}
-            CERT_FOLDER: ${{ vars.CERT_FOLDER }}
-            CORS_ORIGIN: ${{ vars.CORS_ORIGIN }}
-            CLIENT_URL: ${{ vars.CLIENT_URL }}
-            GOOGLE_CLIENT_ID: ${{ vars.GOOGLE_CLIENT_ID }}
-            NEXT_PUBLIC_RECAPTCHA_SITE_KEY: ${{ vars.NEXT_PUBLIC_RECAPTCHA_SITE_KEY }}
-            NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
+            SESSION_SECRET=${{ secrets.SESSION_SECRET }}
+            RECAPTCHA_SECRET_KEY=${{ secrets.RECAPTCHA_SECRET_KEY }}
+            GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
+            NODE_ENV=${{ vars.NODE_ENV }}
+            PORT=${{ vars.PORT }}
+            MONGO_URI=${{ vars.MONGO_URI }}
+            DB_URI=${{ vars.DB_URI }}
+            CERT_FOLDER=${{ vars.CERT_FOLDER }}
+            CORS_ORIGIN=${{ vars.CORS_ORIGIN }}
+            CLIENT_URL=${{ vars.CLIENT_URL }}
+            GOOGLE_CLIENT_ID=${{ vars.GOOGLE_CLIENT_ID }}
+            NEXT_PUBLIC_RECAPTCHA_SITE_KEY=${{ vars.NEXT_PUBLIC_RECAPTCHA_SITE_KEY }}
+            NEXT_PUBLIC_API_URL=${{ vars.NEXT_PUBLIC_API_URL }}
           script: |
-            export SESSION_SECRET=${{ secrets.SESSION_SECRET }}
-            export RECAPTCHA_SECRET_KEY=${{ secrets.RECAPTCHA_SECRET_KEY }}
-            export GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
-            export NODE_ENV=${{ vars.NODE_ENV }}
-            export PORT=${{ vars.PORT }}
-            export MONGO_URI=${{ vars.MONGO_URI }}
-            export DB_URI=${{ vars.DB_URI }}
-            export CERT_FOLDER=${{ vars.CERT_FOLDER }}
-            export CORS_ORIGIN=${{ vars.CORS_ORIGIN }}
-            export CLIENT_URL=${{ vars.CLIENT_URL }}
-            export GOOGLE_CLIENT_ID=${{ vars.GOOGLE_CLIENT_ID }}
-            export NEXT_PUBLIC_RECAPTCHA_SITE_KEY=${{ vars.NEXT_PUBLIC_RECAPTCHA_SITE_KEY }}
-            export NEXT_PUBLIC_API_URL=${{ vars.NEXT_PUBLIC_API_URL }}            
+            export SESSION_SECRET
+            export RECAPTCHA_SECRET_KEY
+            export GOOGLE_CLIENT_SECRET
+            export NODE_ENV
+            export PORT
+            export MONGO_URI
+            export DB_URI
+            export CERT_FOLDER
+            export CORS_ORIGIN
+            export CLIENT_URL
+            export GOOGLE_CLIENT_ID
+            export NEXT_PUBLIC_RECAPTCHA_SITE_KEY
+            export NEXT_PUBLIC_API_URL           
 
             DEPLOY_BASE_DIR="/opt/docker" 
             DEPLOY_SCRIPT_PATH="${DEPLOY_BASE_DIR}/scripts/deploy.sh" 
