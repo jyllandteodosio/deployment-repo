@@ -5,8 +5,8 @@ FROM nginx:alpine
 RUN rm /etc/nginx/conf.d/default.conf
 
 # Copy your custom Nginx configuration into the container
-COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
-COPY ./nginx/conf.d/ /etc/nginx/conf.d/
+COPY ./nginx.conf /etc/nginx/nginx.conf
+COPY ./conf.d/ /etc/nginx/conf.d/
 
 # Expose port 80 (optional, often done in docker-compose)
 EXPOSE 80 443
