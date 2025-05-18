@@ -10,6 +10,8 @@ DEPLOY_BASE_DIR="/opt/docker" # <-- Make sure this path exists on your droplet
 # Define the path for the temporary environment file
 ENV_FILE="${DEPLOY_BASE_DIR}/.env.generated"
 
+docker compose --env-file "/opt/docker/.env.generated" build nginx 
+
 # Navigate to the directory containing the docker-compose.yml file.
 # Adjust this path if your compose file is in a subdirectory within the base deploy directory.
 cd ${DEPLOY_BASE_DIR} || { echo "Error: Deployment directory ${DEPLOY_BASE_DIR} not found."; exit 1; }
@@ -43,10 +45,17 @@ echo "Creating temporary environment file: ${ENV_FILE}"
 if [ ! -s "${ENV_FILE}" ]; then
   echo "Error: Temporary environment file is empty or not created!"
   # Optionally print the shell environment here for debugging (be careful with secrets!)
+  # echo "--- Full Shell Environment (CAUTION: May contain secrets) ---"
   # env
+  # echo "-----------------------------------------------------------"
   exit 1
 fi
 echo "Temporary environment file created successfully."
+
+# --- Debugging Step: Print the content of the generated .env file ---
+echo "--- Content of ${ENV_FILE} ---"
+cat "${ENV_FILE}"
+echo "-----------------------------------"
 
 
 # Pull the latest Docker images defined in the compose file (for services not built locally).
@@ -74,8 +83,8 @@ echo "Bringing up Docker Compose stack..."
 docker compose --env-file "${ENV_FILE}" up -d --remove-orphans # --force-recreate || { echo "Error: Failed to bring up Docker Compose stack."; exit 1; }
 
 # Optional: Clean up the temporary environment file
-echo "Cleaning up temporary environment file..."
-rm "${ENV_FILE}"
+# echo "Cleaning up temporary environment file..."
+# rm "${ENV_FILE}"
 
 # Optional: Clean up old unused Docker images to save disk space.
 # echo "Cleaning up old Docker images..."
