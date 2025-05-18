@@ -19,6 +19,11 @@ echo "Navigated to deployment directory: ${PWD}"
 echo "Pulling latest Docker images..."
 docker compose pull || { echo "Error: Failed to pull Docker images."; exit 1; }
 
+# Build the Nginx image from the local Dockerfile.
+# This ensures the latest Nginx configuration is included.
+echo "Building Nginx image..."
+docker compose build nginx || { echo "Error: Failed to build Nginx image."; exit 1; }
+
 # Bring up the services defined in the compose file.
 # -d: run in detached mode (in the background)
 # --remove-orphans: remove containers for services that are no longer defined in the compose file
