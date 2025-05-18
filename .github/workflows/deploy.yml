@@ -71,6 +71,9 @@ jobs:
             SESSION_SECRET=${{ secrets.SESSION_SECRET }}
             RECAPTCHA_SECRET_KEY=${{ secrets.RECAPTCHA_SECRET_KEY }}
             GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
+            MONGO_INITDB_DATABASE=${{ secrets.MONGO_INITDB_DATABASE }}
+            MONGO_INITDB_ROOT_USERNAME=${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
+            MONGO_INITDB_ROOT_PASSWORD=${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
             NODE_ENV=${{ vars.NODE_ENV }}
             PORT=${{ vars.PORT }}
             MONGO_URI=${{ vars.MONGO_URI }}
