@@ -68,21 +68,21 @@ jobs:
             # directly into the file on the droplet.
             echo "Creating temporary environment file: ${ENV_FILE}"
             cat <<EOF > "${ENV_FILE}"
-SESSION_SECRET=${{ secrets.SESSION_SECRET }}
-RECAPTCHA_SECRET_KEY=${{ secrets.RECAPTCHA_SECRET_KEY }}
-GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
-NODE_ENV=${{ vars.NODE_ENV }}
-PORT=${{ vars.PORT }}
-MONGO_URI=${{ vars.MONGO_URI }}
-DB_URI=${{ vars.DB_URI }}
-CERT_FOLDER=${{ vars.CERT_FOLDER }}
-CORS_ORIGIN=${{ vars.CORS_ORIGIN }}
-CLIENT_URL=${{ vars.CLIENT_URL }}
-GOOGLE_CLIENT_ID=${{ vars.GOOGLE_CLIENT_ID }}
-NEXT_PUBLIC_RECAPTCHA_SITE_KEY=${{ vars.NEXT_PUBLIC_RECAPTCHA_SITE_KEY }}
-NEXT_PUBLIC_API_URL=${{ vars.NEXT_PUBLIC_API_URL }}
-# Add any other variables your services require here
-EOF
+            SESSION_SECRET=${{ secrets.SESSION_SECRET }}
+            RECAPTCHA_SECRET_KEY=${{ secrets.RECAPTCHA_SECRET_KEY }}
+            GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
+            NODE_ENV=${{ vars.NODE_ENV }}
+            PORT=${{ vars.PORT }}
+            MONGO_URI=${{ vars.MONGO_URI }}
+            DB_URI=${{ vars.DB_URI }}
+            CERT_FOLDER=${{ vars.CERT_FOLDER }}
+            CORS_ORIGIN=${{ vars.CORS_ORIGIN }}
+            CLIENT_URL=${{ vars.CLIENT_URL }}
+            GOOGLE_CLIENT_ID=${{ vars.GOOGLE_CLIENT_ID }}
+            NEXT_PUBLIC_RECAPTCHA_SITE_KEY=${{ vars.NEXT_PUBLIC_RECAPTCHA_SITE_KEY }}
+            NEXT_PUBLIC_API_URL=${{ vars.NEXT_PUBLIC_API_URL }}
+            # Add any other variables your services require here
+            EOF
 
             # Check if the env file was created and has content (optional but good for debugging)
             if [ ! -s "${ENV_FILE}" ]; then
