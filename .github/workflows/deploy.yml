@@ -103,6 +103,7 @@ jobs:
             GOOGLE_CLIENT_ID=${{ vars.GOOGLE_CLIENT_ID }}
             NEXT_PUBLIC_RECAPTCHA_SITE_KEY=${{ vars.NEXT_PUBLIC_RECAPTCHA_SITE_KEY }}
             NEXT_PUBLIC_API_URL=${{ vars.NEXT_PUBLIC_API_URL }}
+            FRONTEND_TAG=${{ github.sha }}
             # Add any other variables your services require here
             EOF
 

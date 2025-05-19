@@ -27,7 +27,7 @@ services:
 
   # --- Taskaru App Frontend Service (Next.js/React) ---
   taskaru-frontend:
-    image: jyllandteodosio/taskaru-frontend:${{ github.sha }}
+    image: jyllandteodosio/taskaru-frontend:${FRONTEND_TAG}
     # This service might need to communicate with the backend API internally.
     # expose:
     #   - "3000" 
