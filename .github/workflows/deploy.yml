@@ -57,6 +57,7 @@ jobs:
           build-args: |
             API_URL=${{ vars.NEXT_PUBLIC_API_URL }}
             NEXT_PUBLIC_API_URL=${{ vars.NEXT_PUBLIC_API_URL }}
+            NEXT_PUBLIC_SOCKET_URL=${{ vars.NEXT_PUBLIC_SOCKET_URL }}
 
       # --- Ensure Target Directory Permissions on Droplet ---
       # This step ensures the SSH user (root) has correct permissions
