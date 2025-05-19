@@ -24,19 +24,19 @@ jobs:
           ref: main
           path: ./frontend
 
-      - name: Clean up Docker
-        run: |
-          echo "--- Cleaning up Docker system ---"
-          docker system prune -af
+      # - name: Clean up Docker
+      #   run: |
+      #     echo "--- Cleaning up Docker system ---"
+      #     docker system prune -af
 
-          echo "--- Cleaning up unused Docker images ---"
-          docker image prune -af
+      #     echo "--- Cleaning up unused Docker images ---"
+      #     docker image prune -af
 
-          echo "--- Cleaning up stopped Docker containers ---"
-          docker container prune -f
+      #     echo "--- Cleaning up stopped Docker containers ---"
+      #     docker container prune -f
 
-          echo "--- Cleaning up Docker build cache ---"
-          docker builder prune -af
+      #     echo "--- Cleaning up Docker build cache ---"
+      #     docker builder prune -af
 
       # Log in to Docker Hub
       - name: Login to Docker Hub
