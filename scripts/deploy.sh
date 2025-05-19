@@ -38,7 +38,7 @@ docker compose --env-file "${ENV_FILE}" build nginx || { echo "Error: Failed to 
 # --force-recreate: Recreate containers even if their configuration hasn't changed (useful for ensuring latest image is used) - Optional, remove if you want faster deployments when only code changes
 echo "Bringing up Docker Compose stack..."
 # Use the generated env file to pass variables to the running containers
-docker compose --env-file "${ENV_FILE}" up -d --remove-orphans # --force-recreate || { echo "Error: Failed to bring up Docker Compose stack."; exit 1; }
+docker compose --env-file "${ENV_FILE}" up -d --remove-orphans --pull # --force-recreate || { echo "Error: Failed to bring up Docker Compose stack."; exit 1; }
 
 # Optional: Clean up the temporary environment file
 echo "Cleaning up temporary environment file..."
