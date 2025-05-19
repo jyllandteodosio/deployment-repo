@@ -24,6 +24,13 @@ jobs:
           ref: main
           path: ./frontend
 
+      # Log in to Docker Hub
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
       # --- Build the taskaru-frontend Docker image ---
       - name: Build taskaru-frontend image
         uses: docker/build-push-action@v5
