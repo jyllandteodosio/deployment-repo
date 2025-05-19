@@ -44,7 +44,7 @@ jobs:
           context: ./frontend 
           file: ./frontend/Dockerfile.production 
           push: true 
-          tags: taskaru-frontend:${{ github.sha }}
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/taskaru-frontend:${{ github.sha }}
           build-args: |
             API_URL=${{ vars.NEXT_PUBLIC_API_URL }}
 
