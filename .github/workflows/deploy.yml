@@ -16,6 +16,25 @@ jobs:
       - name: Checkout deployment repository code
         uses: actions/checkout@v4
 
+      # Checkout the code from the taskaru-frontend repository
+      - name: Checkout Frontend Repo
+        uses: actions/checkout@v4
+        with:
+          repository: jyllandteodosio/task-manager-react
+          ref: main
+          path: ./frontend
+
+      # --- Build the taskaru-frontend Docker image ---
+      - name: Build taskaru-frontend image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend 
+          file: ./frontend/Dockerfile.production 
+          push: false 
+          tags: taskaru-frontend:latest 
+          build-args: |
+            API_URL=${{ vars.NEXT_PUBLIC_API_URL }}
+
       # --- Ensure Target Directory Permissions on Droplet ---
       # This step ensures the SSH user (root) has correct permissions
       # before attempting to copy files.
