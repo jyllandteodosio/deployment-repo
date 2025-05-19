@@ -41,8 +41,8 @@ echo "Bringing up Docker Compose stack..."
 docker compose --env-file "${ENV_FILE}" up -d --remove-orphans --pull # --force-recreate || { echo "Error: Failed to bring up Docker Compose stack."; exit 1; }
 
 # Optional: Clean up the temporary environment file
-echo "Cleaning up temporary environment file..."
-rm "${ENV_FILE}"
+# echo "Cleaning up temporary environment file..."
+# rm "${ENV_FILE}"
 
 # Optional: Clean up old unused Docker images to save disk space.
 # echo "Cleaning up old Docker images..."
